@@ -19,7 +19,9 @@ All color values—including surface backgrounds, text foregrounds, syntax highl
 
 ---
 
-## Usage
+## Usage & Features
+
+### Basic Usage
 
 Load your preferred theme using `load-theme`:
 
@@ -29,6 +31,45 @@ Load your preferred theme using `load-theme`:
 
 ;; Or Load Light Theme (Sunshine)
 (load-theme 'duskmoon-sunshine t)
+```
+
+### Dynamic Theme Toggling
+
+Toggle dynamically between `duskmoon-moonlight` and `duskmoon-sunshine` while instantly refreshing modeline faces:
+
+```elisp
+(duskmoon-toggle-theme)
+```
+
+### Spaceline Integration
+
+Enable custom Spaceline modeline support styled with Duskmoon design system tokens:
+
+```elisp
+(use-package duskmoon-spaceline
+  :after (spaceline duskmoon-theme)
+  :config
+  (duskmoon-spaceline-setup))
+```
+
+---
+
+## Complete `use-package` Configuration (`init.el`)
+
+Here is a complete, minimal `use-package` setup demonstrating theme loading, dynamic toggling keybinding, and Spaceline integration:
+
+```elisp
+(use-package emacs-duskmoon-theme
+  :straight (emacs-duskmoon-theme :type git :host github :repo "duskmoon-dev/emacs-duskmoon-theme")
+  :bind ("C-c t d" . duskmoon-toggle-theme)
+  :config
+  (load-theme 'duskmoon-moonlight t))
+
+(use-package spaceline
+  :ensure t
+  :config
+  (require 'duskmoon-spaceline)
+  (duskmoon-spaceline-setup))
 ```
 
 ---

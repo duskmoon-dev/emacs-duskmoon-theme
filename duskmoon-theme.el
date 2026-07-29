@@ -322,9 +322,33 @@
      `(magit-section-heading ((t (:foreground ,secondary :weight bold))))
      `(magit-section-highlight ((t (:background ,surface-container))))
      `(magit-branch-local ((t (:foreground ,tertiary :weight bold))))
-     `(magit-branch-remote ((t (:foreground ,accent :weight bold)))))))
+     `(magit-branch-remote ((t (:foreground ,accent :weight bold))))
+
+     ;; Spaceline Integration
+     `(duskmoon-spaceline-active1 ((t (:background ,surface-container-high :foreground ,on-surface))))
+     `(duskmoon-spaceline-active2 ((t (:background ,surface-container-highest :foreground ,secondary))))
+     `(duskmoon-spaceline-inactive1 ((t (:background ,surface-container-low :foreground ,on-surface-variant))))
+     `(duskmoon-spaceline-inactive2 ((t (:background ,surface-dim :foreground ,neutral-variant))))
+     `(duskmoon-spaceline-modified ((t (:background ,warning-container :foreground ,warning :weight bold))))
+     `(duskmoon-spaceline-read-only ((t (:background ,error-container :foreground ,error-content :weight bold))))
+     `(spaceline-highlight-face ((t (:background ,accent :foreground ,accent-content))))
+     `(spaceline-modified ((t (:background ,warning-container :foreground ,warning :weight bold))))
+     `(spaceline-read-only ((t (:background ,error-container :foreground ,error-content :weight bold)))))))
 
 (duskmoon-theme-build-theme 'duskmoon duskmoon-palette-moonlight)
+
+;;;###autoload
+(defun duskmoon-toggle-theme ()
+  "Toggle between `duskmoon-moonlight` and `duskmoon-sunshine` themes."
+  (interactive)
+  (if (custom-theme-enabled-p 'duskmoon-moonlight)
+      (progn
+        (disable-theme 'duskmoon-moonlight)
+        (load-theme 'duskmoon-sunshine t))
+    (progn
+      (disable-theme 'duskmoon-sunshine)
+      (load-theme 'duskmoon-moonlight t)))
+  (force-mode-line-update t))
 
 ;;;###autoload
 (when load-file-name

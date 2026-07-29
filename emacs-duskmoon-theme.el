@@ -35,6 +35,14 @@
 (require 'duskmoon-theme)
 
 ;;;###autoload
+(autoload 'duskmoon-spaceline-setup "duskmoon-spaceline"
+  "Setup and enable the Duskmoon Spaceline modeline format." t)
+
+;;;###autoload
+(autoload 'duskmoon-toggle-theme "duskmoon-theme"
+  "Toggle between `duskmoon-moonlight` and `duskmoon-sunshine` themes." t)
+
+;;;###autoload
 (when load-file-name
   (add-to-list 'custom-theme-load-path
                (file-name-as-directory
