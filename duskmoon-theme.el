@@ -31,7 +31,30 @@
 ;; derived directly from official @duskmoon-dev/design system tokens:
 ;; https://github.com/duskmoon-dev/design
 
-;;; Code:
+(defgroup duskmoon-theme nil
+  "Customizable options for Duskmoon color themes."
+  :group 'faces
+  :prefix "duskmoon-")
+
+(defcustom duskmoon-mode-line-style 'default
+  "Style of the mode-line background.
+- `default': Uses `surface-container-high' background.
+- `vivid': Uses `primary-container' accent background.
+- `tertiary': Uses `tertiary-container' accent background."
+  :type '(choice (const :tag "Default Surface Container" default)
+                 (const :tag "Vivid Primary Container" vivid)
+                 (const :tag "Tertiary Container" tertiary))
+  :group 'duskmoon-theme)
+
+(defcustom duskmoon-header-line-style 'default
+  "Style of the header-line background.
+- `default': Uses `surface-container' background.
+- `accent': Uses `secondary-container' background.
+- `dim': Uses `surface-dim' background."
+  :type '(choice (const :tag "Default Surface Container" default)
+                 (const :tag "Secondary Accent Container" accent)
+                 (const :tag "Dimmed Surface" dim))
+  :group 'duskmoon-theme)
 
 (deftheme duskmoon
   "Default Duskmoon color theme based on @duskmoon-dev/design tokens.")
@@ -215,7 +238,7 @@ If THEME is omitted or nil, defaults to the active theme palette."
   "Apply face specifications for THEME-NAME using PALETTE."
   (setq duskmoon-theme-active-palette palette
         duskmoon-theme-active-theme theme-name)
-  (let ((primary                   (cdr (assq 'primary palette)))
+  (let* ((primary                   (cdr (assq 'primary palette)))
         (primary-content           (cdr (assq 'primary-content palette)))
         (primary-container         (cdr (assq 'primary-container palette)))
         (on-primary-container      (cdr (assq 'on-primary-container palette)))
@@ -275,7 +298,22 @@ If THEME is omitted or nil, defaults to the active theme palette."
         (error                     (cdr (assq 'error palette)))
         (error-content             (cdr (assq 'error-content palette)))
         (error-container           (cdr (assq 'error-container palette)))
-        (on-error-container        (cdr (assq 'on-error-container palette))))
+        (on-error-container        (cdr (assq 'on-error-container palette)))
+        (mode-line-bg (pcase duskmoon-mode-line-style
+                        ('vivid primary-container)
+                        ('tertiary tertiary-container)
+                        (_ surface-container-high)))
+        (mode-line-fg (pcase duskmoon-mode-line-style
+                        ('vivid on-primary-container)
+                        ('tertiary on-tertiary-container)
+                        (_ on-surface)))
+        (header-line-bg (pcase duskmoon-header-line-style
+                          ('accent secondary-container)
+                          ('dim surface-dim)
+                          (_ surface-container)))
+        (header-line-fg (pcase duskmoon-header-line-style
+                          ('accent on-secondary-container)
+                          (_ on-surface))))
     (ignore secondary-content tertiary-content accent-content neutral surface-variant
             base-100 base-200 base-300 base-400 base-500 base-700 base-900
             inverse-surface inverse-on-surface inverse-primary shadow scrim error)
@@ -286,7 +324,7 @@ If THEME is omitted or nil, defaults to the active theme palette."
      `(default ((t (:background ,surface :foreground ,on-surface))))
      `(cursor ((t (:background ,primary :foreground ,primary-content))))
      `(region ((t (:background ,primary-container :foreground ,on-primary-container))))
-     `(mode-line ((t (:background ,surface-container-high :foreground ,on-surface :box (:line-width 1 :color ,outline-variant)))))
+     `(mode-line ((t (:background ,mode-line-bg :foreground ,mode-line-fg :box (:line-width 1 :color ,outline-variant)))))
      `(mode-line-inactive ((t (:background ,surface-container-low :foreground ,on-surface-variant :box (:line-width 1 :color ,outline-variant)))))
      `(line-number ((t (:background ,surface-dim :foreground ,neutral-variant))))
      `(line-number-current-line ((t (:background ,surface-container :foreground ,secondary :weight bold))))
@@ -296,7 +334,7 @@ If THEME is omitted or nil, defaults to the active theme palette."
 
      ;; Additional Core UI Elements & Diagnostics
      `(highlight ((t (:background ,surface-bright :foreground ,on-surface))))
-     `(header-line ((t (:background ,surface-container :foreground ,on-surface :box (:line-width 1 :color ,outline-variant)))))
+     `(header-line ((t (:background ,header-line-bg :foreground ,header-line-fg :box (:line-width 1 :color ,outline-variant)))))
      `(shadow ((t (:foreground ,neutral-content))))
      `(link ((t (:foreground ,tertiary :underline t))))
      `(link-visited ((t (:foreground ,accent :underline t))))

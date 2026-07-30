@@ -33,6 +33,20 @@ Load your preferred theme using `load-theme`:
 (load-theme 'duskmoon-sunshine t)
 ```
 
+### Modeline & Header Line Customization
+
+You can configure the style of the mode line and header line before loading the theme:
+
+```elisp
+;; Configure Modeline Style: 'default, 'vivid (primary container), or 'tertiary
+(setq duskmoon-mode-line-style 'vivid)
+
+;; Configure Header Line Style: 'default, 'accent (secondary container), or 'dim
+(setq duskmoon-header-line-style 'accent)
+
+(load-theme 'duskmoon-moonlight t)
+```
+
 ### Dynamic Theme Toggling
 
 Toggle dynamically between `duskmoon-moonlight` and `duskmoon-sunshine` while instantly refreshing modeline faces:
@@ -65,12 +79,15 @@ duskmoon-theme-active-palette
 
 ## Complete `use-package` Configuration (`init.el`)
 
-Here is a complete, minimal `use-package` setup demonstrating theme loading and dynamic toggling keybinding:
+Here is a complete `use-package` setup demonstrating custom modeline/header-line styles, theme loading, and dynamic toggling keybinding:
 
 ```elisp
 (use-package emacs-duskmoon-theme
   :straight (emacs-duskmoon-theme :type git :host github :repo "duskmoon-dev/emacs-duskmoon-theme")
   :bind ("C-c t d" . duskmoon-toggle-theme)
+  :init
+  (setq duskmoon-mode-line-style 'default   ; 'default, 'vivid, or 'tertiary
+        duskmoon-header-line-style 'default) ; 'default, 'accent, or 'dim
   :config
   (load-theme 'duskmoon-moonlight t))
 ```
