@@ -39,20 +39,20 @@
 (defcustom duskmoon-mode-line-style 'default
   "Style of the mode-line background.
 - `default': Uses `surface-container-high' background.
-- `vivid': Uses `primary-container' accent background.
-- `tertiary': Uses `tertiary-container' accent background."
+- `vivid': Uses `primary' color background.
+- `tertiary': Uses `tertiary' color background."
   :type '(choice (const :tag "Default Surface Container" default)
-                 (const :tag "Vivid Primary Container" vivid)
-                 (const :tag "Tertiary Container" tertiary))
+                 (const :tag "Vivid Primary Color" vivid)
+                 (const :tag "Tertiary Color" tertiary))
   :group 'duskmoon-theme)
 
 (defcustom duskmoon-header-line-style 'default
   "Style of the header-line background.
 - `default': Uses `surface-container' background.
-- `accent': Uses `secondary-container' background.
+- `accent': Uses `secondary' color background.
 - `dim': Uses `surface-dim' background."
   :type '(choice (const :tag "Default Surface Container" default)
-                 (const :tag "Secondary Accent Container" accent)
+                 (const :tag "Secondary Accent Color" accent)
                  (const :tag "Dimmed Surface" dim))
   :group 'duskmoon-theme)
 
@@ -300,19 +300,19 @@ If THEME is omitted or nil, defaults to the active theme palette."
         (error-container           (cdr (assq 'error-container palette)))
         (on-error-container        (cdr (assq 'on-error-container palette)))
         (mode-line-bg (pcase duskmoon-mode-line-style
-                        ('vivid primary-container)
-                        ('tertiary tertiary-container)
+                        ('vivid primary)
+                        ('tertiary tertiary)
                         (_ surface-container-high)))
         (mode-line-fg (pcase duskmoon-mode-line-style
-                        ('vivid on-primary-container)
-                        ('tertiary on-tertiary-container)
+                        ('vivid primary-content)
+                        ('tertiary tertiary-content)
                         (_ on-surface)))
         (header-line-bg (pcase duskmoon-header-line-style
-                          ('accent secondary-container)
+                          ('accent secondary)
                           ('dim surface-dim)
                           (_ surface-container)))
         (header-line-fg (pcase duskmoon-header-line-style
-                          ('accent on-secondary-container)
+                          ('accent secondary-content)
                           (_ on-surface))))
     (ignore secondary-content tertiary-content accent-content neutral surface-variant
             base-100 base-200 base-300 base-400 base-500 base-700 base-900

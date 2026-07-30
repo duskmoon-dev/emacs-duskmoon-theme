@@ -38,10 +38,10 @@ Load your preferred theme using `load-theme`:
 You can configure the style of the mode line and header line before loading the theme:
 
 ```elisp
-;; Configure Modeline Style: 'default, 'vivid (primary container), or 'tertiary
+;; Configure Modeline Style: 'default, 'vivid (primary color), or 'tertiary (tertiary color)
 (setq duskmoon-mode-line-style 'vivid)
 
-;; Configure Header Line Style: 'default, 'accent (secondary container), or 'dim
+;; Configure Header Line Style: 'default, 'accent (secondary color), or 'dim
 (setq duskmoon-header-line-style 'accent)
 
 (load-theme 'duskmoon-moonlight t)
