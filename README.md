@@ -41,22 +41,11 @@ Toggle dynamically between `duskmoon-moonlight` and `duskmoon-sunshine` while in
 (duskmoon-toggle-theme)
 ```
 
-### Spaceline Integration
-
-Enable custom Spaceline modeline support styled with Duskmoon design system tokens:
-
-```elisp
-(use-package duskmoon-spaceline
-  :after (spaceline duskmoon-theme)
-  :config
-  (duskmoon-spaceline-setup))
-```
-
 ---
 
 ## Complete `use-package` Configuration (`init.el`)
 
-Here is a complete, minimal `use-package` setup demonstrating theme loading, dynamic toggling keybinding, and Spaceline integration:
+Here is a complete, minimal `use-package` setup demonstrating theme loading and dynamic toggling keybinding:
 
 ```elisp
 (use-package emacs-duskmoon-theme
@@ -64,12 +53,6 @@ Here is a complete, minimal `use-package` setup demonstrating theme loading, dyn
   :bind ("C-c t d" . duskmoon-toggle-theme)
   :config
   (load-theme 'duskmoon-moonlight t))
-
-(use-package spaceline
-  :ensure t
-  :config
-  (require 'duskmoon-spaceline)
-  (duskmoon-spaceline-setup))
 ```
 
 ---

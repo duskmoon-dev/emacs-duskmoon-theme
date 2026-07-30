@@ -35,10 +35,6 @@
 (require 'duskmoon-theme)
 
 ;;;###autoload
-(autoload 'duskmoon-spaceline-setup "duskmoon-spaceline"
-  "Setup and enable the Duskmoon Spaceline modeline format." t)
-
-;;;###autoload
 (autoload 'duskmoon-toggle-theme "duskmoon-theme"
   "Toggle between `duskmoon-moonlight` and `duskmoon-sunshine` themes." t)
 
