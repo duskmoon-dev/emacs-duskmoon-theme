@@ -41,6 +41,26 @@ Toggle dynamically between `duskmoon-moonlight` and `duskmoon-sunshine` while in
 (duskmoon-toggle-theme)
 ```
 
+### Color Token API for Extensions & Packages
+
+Other packages, modelines, or custom UI extensions can query active or specific theme tokens programmatically:
+
+```elisp
+;; Query token for active theme (returns hex string, e.g., "#CFCFCF")
+(duskmoon-get-color 'primary)
+(duskmoon-color 'surface)
+
+;; Query token for a specific theme variant
+(duskmoon-get-color 'primary 'duskmoon-sunshine)
+
+;; Access active palette alist directly
+duskmoon-theme-active-palette
+
+;; Evaluate code with palette tokens bound locally
+(duskmoon-with-palette 'duskmoon-moonlight
+  (message "Primary: %s, Surface: %s" primary surface))
+```
+
 ---
 
 ## Complete `use-package` Configuration (`init.el`)

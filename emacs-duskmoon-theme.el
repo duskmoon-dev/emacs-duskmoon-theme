@@ -39,6 +39,14 @@
   "Toggle between `duskmoon-moonlight` and `duskmoon-sunshine` themes." t)
 
 ;;;###autoload
+(autoload 'duskmoon-get-color "duskmoon-theme"
+  "Get the hex color value for TOKEN in THEME." nil)
+
+;;;###autoload
+(autoload 'duskmoon-color "duskmoon-theme"
+  "Alias for `duskmoon-get-color'." nil)
+
+;;;###autoload
 (when load-file-name
   (add-to-list 'custom-theme-load-path
                (file-name-as-directory

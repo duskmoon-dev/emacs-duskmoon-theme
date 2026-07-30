@@ -167,8 +167,54 @@
 (defalias 'duskmoon-palette 'duskmoon-palette-moonlight
   "Default palette alias pointing to `duskmoon-palette-moonlight`.")
 
+(defvar duskmoon-theme-active-palette duskmoon-palette-moonlight
+  "Alist of the currently active Duskmoon theme color tokens.")
+
+(defvar duskmoon-theme-active-theme 'duskmoon-moonlight
+  "Symbol of the currently active Duskmoon theme.")
+
+;;;###autoload
+(defun duskmoon-get-color (token &optional theme)
+  "Get the hex color value for TOKEN in THEME.
+TOKEN is a symbol matching a design token (e.g. `primary', `surface').
+If THEME is omitted or nil, defaults to the active theme palette."
+  (let ((palette (cond
+                  ((eq theme 'duskmoon-sunshine) duskmoon-palette-sunshine)
+                  ((eq theme 'duskmoon-moonlight) duskmoon-palette-moonlight)
+                  (t duskmoon-theme-active-palette))))
+    (cdr (assq token palette))))
+
+;;;###autoload
+(defalias 'duskmoon-color #'duskmoon-get-color
+  "Alias for `duskmoon-get-color'.")
+
+(defmacro duskmoon-with-palette (theme &rest body)
+  "Evaluate BODY with local token variables bound to hex values for THEME."
+  (declare (indent 1))
+  `(let* ((p (cond
+              ((eq ,theme 'duskmoon-sunshine) duskmoon-palette-sunshine)
+              ((eq ,theme 'duskmoon-moonlight) duskmoon-palette-moonlight)
+              (t duskmoon-theme-active-palette)))
+          (primary                   (cdr (assq 'primary p)))
+          (primary-content           (cdr (assq 'primary-content p)))
+          (secondary                 (cdr (assq 'secondary p)))
+          (tertiary                  (cdr (assq 'tertiary p)))
+          (accent                    (cdr (assq 'accent p)))
+          (surface                   (cdr (assq 'surface p)))
+          (on-surface                (cdr (assq 'on-surface p)))
+          (outline                   (cdr (assq 'outline p)))
+          (info                      (cdr (assq 'info p)))
+          (success                   (cdr (assq 'success p)))
+          (warning                   (cdr (assq 'warning p)))
+          (error                     (cdr (assq 'error p))))
+     (ignore primary primary-content secondary tertiary accent surface
+             on-surface outline info success warning error)
+     ,@body))
+
 (defun duskmoon-theme-build-theme (theme-name palette)
   "Apply face specifications for THEME-NAME using PALETTE."
+  (setq duskmoon-theme-active-palette palette
+        duskmoon-theme-active-theme theme-name)
   (let ((primary                   (cdr (assq 'primary palette)))
         (primary-content           (cdr (assq 'primary-content palette)))
         (primary-container         (cdr (assq 'primary-container palette)))
