@@ -15,7 +15,7 @@ All color values—including surface backgrounds, text foregrounds, syntax highl
 | Theme Symbol | Mode | Primary | Surface | Text Foreground |
 |---|---|---|---|---|
 | `duskmoon-moonlight` | Dark | `#CFCFCF` | `#11161F` | `#EBEFF5` |
-| `duskmoon-sunshine` | Light | `#E19100` | `#FFFFFF` | `#212730` |
+| `duskmoon-sunshine` | Light | `#F2BD4B` | `#FFFCF5` | `#30291F` |
 
 ---
 
